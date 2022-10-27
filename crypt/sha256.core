@@ -1,0 +1,87 @@
+CAPI=2:
+name: midimaster21b:cryptography:sha256:0.1.0
+description: A basic implementation of the SHA-256 algorithm
+
+filesets:
+  rtl:
+    files:
+      - src/rtl/sha_algo.v
+    file_type: verilogSource
+
+  tb:
+    files:
+      - sim/sha_algo_tb.v
+    file_type: verilogSource
+
+  tb_uvm:
+    files:
+      - sim/uvm/test_pkg.sv
+      - sim/uvm/msg_if.sv
+      - sim/uvm/msg_seq_item.sv
+      - sim/uvm/msg_seq.sv
+      - sim/uvm/msg_driver.sv
+      - sim/uvm/msg_monitor.sv
+      - sim/uvm/msg_agent.sv
+      - sim/uvm/hash_if.sv
+      - sim/uvm/hash_seq_item.sv
+      - sim/uvm/hash_seq.sv
+      - sim/uvm/hash_driver.sv
+      - sim/uvm/hash_monitor.sv
+      - sim/uvm/hash_agent.sv
+      - sim/uvm/sha_scoreboard.sv
+      - sim/uvm/sha_env.sv
+      - src/rtl/sha_algo_wrapper.sv
+      - sim/sha_uvm_tb_top.sv
+      - sim/single_value_test.sv
+    file_type: systemVerilogSource
+
+  basys3:
+    files:
+      - src/constraints/basys3.xdc: {file_type: xdc}
+
+targets:
+  # Special FuseSoC target
+  default: &default
+    filesets:
+      - rtl
+    toplevel: sha_algo
+
+  # Simulation target
+  sim:
+    <<: *default
+    description: Simulate the design
+    default_tool: xsim
+    filesets_append:
+      - tb
+    toplevel: sha_algo_tb
+
+  # Simulation UVM target
+  sim_uvm:
+    <<: *default
+    description: Simulate the design with UVM
+    default_tool: xsim
+    tools:
+      xsim:
+        xelab_options: [-L, uvm, --timescale, 1ns/1ns]
+        # xsim_options: [-L, uvm, --timescale, 1ns/1ns]
+    filesets_append:
+      - tb
+      - tb_uvm
+    toplevel: sha_uvm_tb_top
+
+  # Synthesis target
+  synth:
+    <<: *default
+    description: Synthesize the design for a Basys3 FPGA board
+    default_tool: vivado
+    filesets_append:
+      - basys3
+    tools:
+      vivado:
+        part: xc7a35tcpg236-1
+
+provider:
+  name    : github
+  user    : midimaster21b
+  repo    : SHA-Module
+  version : master

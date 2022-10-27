@@ -1,0 +1,54 @@
+CAPI=2:
+name: midimaster21b:dsp:ad9467:0.1.0
+description: A basic interface to the Analog Digital AD9467 ADC
+
+filesets:
+  rtl:
+    files:
+      - src/rtl/adc_adapter_top.vhd
+    file_type: vhdlSource
+    depend:
+      - midimaster21b:comm:three-wire-spi-ad:0.1.0
+
+  tb:
+    files:
+      - src/tb/adc_adapter_tb.vhd
+    file_type: vhdlSource
+
+  zcu106:
+    files:
+      - src/constraints/ad9467_pins.xdc: {file_type: xdc}
+
+
+targets:
+  # Special FuseSoC target
+  default: &default
+    filesets:
+      - rtl
+    toplevel: adc_adapter_top
+
+  # Simulation target
+  sim:
+    <<: *default
+    description: Simulate the design
+    default_tool: xsim
+    filesets_append:
+      - tb
+    toplevel: adc_adapter_tb
+
+  # Synthesis target
+  synth:
+    <<: *default
+    description: Synthesize the design for a ZCU106 development board
+    default_tool: vivado
+    filesets_append:
+      - zcu106
+    tools:
+      vivado:
+	part: xczu7ev-ffvc1156-2-e
+
+provider:
+  name    : github
+  user    : midimaster21b
+  repo    : AD9467
+  version : master

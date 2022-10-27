@@ -1,0 +1,40 @@
+CAPI=2:
+name: midimaster21b:comm:three-wire-spi-ad:0.1.0
+description: A basic implementation of the Analog Digital three wire SPI protocol
+
+filesets:
+  rtl:
+    files:
+      - src/rtl/three_wire_spi_regs.vhd
+      - src/rtl/three_wire_spi_cdc.vhd
+      - src/rtl/three_wire_spi.vhd
+      - src/rtl/three_wire_spi_top.vhd
+    file_type: vhdlSource
+
+  tb:
+    files:
+      - src/tb/three_wire_spi_tb.vhd
+    file_type: vhdlSource
+
+
+targets:
+  # Special FuseSoC target
+  default: &default
+    filesets:
+      - rtl
+    toplevel: three_wire_spi_top
+
+  # Simulation target
+  sim:
+    <<: *default
+    description: Simulate the design
+    default_tool: xsim
+    filesets_append:
+      - tb
+    toplevel: three_wire_spi_tb
+
+provider:
+  name    : github
+  user    : midimaster21b
+  repo    : three-wire-spi-ad
+  version : master
