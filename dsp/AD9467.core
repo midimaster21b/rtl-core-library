@@ -45,7 +45,7 @@ targets:
       - zcu106
     tools:
       vivado:
-	part: xczu7ev-ffvc1156-2-e
+        part: xczu7ev-ffvc1156-2-e
 
 provider:
   name    : github
