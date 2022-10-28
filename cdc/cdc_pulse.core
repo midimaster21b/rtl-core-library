@@ -1,0 +1,23 @@
+CAPI=2:
+name: midimaster21b:cdc:pulse:0.1.0
+description: A basic clock domain crossing module for a single pulse
+
+filesets:
+  rtl:
+    files:
+      - src/rtl/cdc_pulse.vhd
+    file_type: vhdlSource
+
+targets:
+  # Special FuseSoC target
+  default: &default
+    default_tool: xsim
+    filesets:
+      - rtl
+    toplevel: cdc_pulse
+
+provider:
+  name    : github
+  user    : midimaster21b
+  repo    : clock-domain-crossing
+  version : master
