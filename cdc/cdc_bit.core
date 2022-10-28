@@ -8,6 +8,11 @@ filesets:
       - src/rtl/cdc_bit.vhd
     file_type: vhdlSource
 
+  tb:
+    files:
+      - src/tb/cdc_bit_tb.vhd
+    file_type: vhdlSource
+
 targets:
   # Special FuseSoC target
   default: &default
@@ -15,6 +20,14 @@ targets:
     filesets:
       - rtl
     toplevel: cdc_bit
+
+  sim:
+    <<: *default
+    description: Simulate the design
+    default_tool: xsim
+    filesets_append:
+      - tb
+    toplevel: cdc_bit_tb
 
 provider:
   name    : github

@@ -8,6 +8,11 @@ filesets:
       - src/rtl/cdc_pulse.vhd
     file_type: vhdlSource
 
+  tb:
+    files:
+      - src/tb/cdc_pulse_tb.vhd
+    file_type: vhdlSource
+
 targets:
   # Special FuseSoC target
   default: &default
@@ -15,6 +20,14 @@ targets:
     filesets:
       - rtl
     toplevel: cdc_pulse
+
+  sim:
+    <<: *default
+    description: Simulate the design
+    default_tool: xsim
+    filesets_append:
+      - tb
+    toplevel: cdc_pulse_tb
 
 provider:
   name    : github
