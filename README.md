@@ -6,9 +6,9 @@ This is a set of common RTL cores that I've developed over time and organized in
 
 1. Add this library to your set of cores
 
-   `fusesoc library add --sync-type git --global midi-cores https://github.com/midimaster21b/rtl-core-library.git`
+`fusesoc library add --sync-type git --global midi-cores https://github.com/midimaster21b/rtl-core-library.git`
 
-1. Verify that the library is present
+2. Verify that the library is present
 
    `fusesoc library list`
 
@@ -19,7 +19,7 @@ This is a set of common RTL cores that I've developed over time and organized in
    midi-cores : /home/midimaster21b/.local/share/fusesoc/midi-cores : git       : https://github.com/midimaster21b/rtl-core-library.git : y
    ```
 
-1. View your shiny new cores!
+3. View your shiny new cores!
 
    `fusesoc list-cores`
 
