@@ -5,36 +5,56 @@ description: A basic implementation of the Analog Digital three wire SPI protoco
 filesets:
   rtl:
     files:
+      - src/tb/glbl.v: {file_type: verilogSource}
       - src/rtl/three_wire_spi_regs.vhd
       - src/rtl/three_wire_spi_cdc.vhd
       - src/rtl/three_wire_spi.vhd
       - src/rtl/three_wire_spi_top.vhd
     file_type: vhdlSource
+    depend:
+      - midimaster21b:cdc:bit:0.1.0
+      - midimaster21b:cdc:array:0.1.0
+      - midimaster21b:cdc:pulse:0.1.0
 
   tb:
     files:
       - src/tb/three_wire_spi_tb.vhd
     file_type: vhdlSource
 
+  pkg_script:
+    files:
+      - src/scripts/pkg_ip.tcl
+    file_type: tclSource
+
 
 targets:
   # Special FuseSoC target
   default: &default
+    default_tool: vivado
     filesets:
       - rtl
+      - pkg_script
     toplevel: three_wire_spi_top
 
   # Simulation target
   sim:
-    <<: *default
     description: Simulate the design
     default_tool: xsim
+    tools:
+      xsim:
+        xelab_options: [glbl]
     filesets_append:
       - tb
     toplevel: three_wire_spi_tb
 
+  pkg_ip:
+    <<: *default
+    default_tool: vivado
+    toplevel: three_wire_spi_top
+
 provider:
-  name    : github
-  user    : midimaster21b
-  repo    : three-wire-spi-ad
-  version : master
+  name     : github
+  user     : midimaster21b
+  repo     : three-wire-spi-ad
+  cachable : false
+  version  : master
