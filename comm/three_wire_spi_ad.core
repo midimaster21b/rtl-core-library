@@ -33,7 +33,7 @@ targets:
     default_tool: vivado
     filesets:
       - rtl
-      - pkg_script
+      # - pkg_script
     toplevel: three_wire_spi_top
 
   # Simulation target
