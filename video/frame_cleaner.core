@@ -1,0 +1,27 @@
+CAPI=2:
+name: midimaster21b:video:frame-cleaner:0.1.0
+description: An video AXI stream frame cleaner made to ensure frames are appropriately formatted
+
+filesets:
+  rtl:
+    files:
+      - src/rtl/frame_cleaner.vhd
+      - src/rtl/frame_cleaner_v1_0_S_AXI_CTRL.vhd
+      - src/rtl/frame_cleaner_v1_0.vhd
+    file_type: vhdlSource
+
+targets:
+  # Special FuseSoC target
+  default: &default
+    default_tool: vivado
+    filesets:
+      - rtl
+    toplevel: frame_cleaner_v1_0
+
+
+provider:
+  name     : github
+  user     : midimaster21b
+  repo     : axis-video-frame-cleaner
+  cachable : false
+  version  : master
