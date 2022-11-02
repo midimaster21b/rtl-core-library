@@ -1,0 +1,25 @@
+CAPI=2:
+name: midimaster21b:video:greyscale:0.1.0
+description: A basic AXIS video greyscale normalization module
+
+filesets:
+  rtl:
+    files:
+      - src/rtl/greyscale_norm.vhd
+    file_type: vhdlSource
+
+targets:
+  # Special FuseSoC target
+  default: &default
+    default_tool: vivado
+    filesets:
+      - rtl
+    toplevel: greyscale_norm
+
+
+provider:
+  name     : github
+  user     : midimaster21b
+  repo     : axis-video-greyscale
+  cachable : false
+  version  : master
