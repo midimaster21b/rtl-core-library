@@ -1,0 +1,31 @@
+CAPI=2:
+name: midimaster21b:comm:amba-interfaces:0.1.0
+description: A set of AMBA interface definitions
+
+filesets:
+  rtl:
+    files:
+      - src/ace_lite_if.sv
+      - src/ahb_if.sv
+      - src/apb_if.sv
+      - src/asb_if.sv
+      - src/atb_if.sv
+      - src/axi4_if.sv
+      - src/axi4_lite_if.sv
+      - src/axis_if.sv
+    file_type: systemVerilogSource
+
+targets:
+  # Special FuseSoC target
+  default: &default
+    default_tool: vivado
+    filesets:
+      - rtl
+    toplevel: axis_if
+
+provider:
+  name     : github
+  user     : midimaster21b
+  repo     : amba-interfaces
+  cachable : false
+  version  : master
