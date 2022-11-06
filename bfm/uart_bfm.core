@@ -1,0 +1,38 @@
+CAPI=2:
+name: midimaster21b:bfm:uart:0.1.0
+description: A basic UART BFM
+
+filesets:
+  rtl:
+    files:
+      - src/rtl/uart_rx_bfm.sv
+      - src/rtl/uart_tx_bfm.sv
+    file_type: systemVerilogSource
+
+  tb:
+    files:
+      - src/tb/uart_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  # Special FuseSoC target
+  default: &default
+    default_tool: vivado
+    filesets:
+      - rtl
+
+  # Simulation target
+  sim:
+    <<: *default
+    description: Simulate the design
+    default_tool: xsim
+    filesets_append:
+      - tb
+    toplevel: uart_tb
+
+provider:
+  name     : github
+  user     : midimaster21b
+  repo     : uart-bfm
+  cachable : false
+  version  : master

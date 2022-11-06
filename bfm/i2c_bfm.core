@@ -1,0 +1,38 @@
+CAPI=2:
+name: midimaster21b:bfm:i2c:0.1.0
+description: A basic i2c BFM
+
+filesets:
+  rtl:
+    files:
+      - src/rtl/i2c_slave_bfm.sv
+      - src/rtl/i2c_master_bfm.sv
+    file_type: systemVerilogSource
+
+  tb:
+    files:
+      - src/tb/i2c_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  # Special FuseSoC target
+  default: &default
+    default_tool: vivado
+    filesets:
+      - rtl
+
+  # Simulation target
+  sim:
+    <<: *default
+    description: Simulate the design
+    default_tool: xsim
+    filesets_append:
+      - tb
+    toplevel: i2c_tb
+
+provider:
+  name     : github
+  user     : midimaster21b
+  repo     : i2c-bfm
+  cachable : false
+  version  : master
