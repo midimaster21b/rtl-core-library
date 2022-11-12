@@ -23,8 +23,8 @@ targets:
       - rtl
     toplevel: spi_master_wrapper
     parameters:
-      CLOCK_PHASE_G: 0
-      CLOCK_POLARITY_G: 0
+      - CLOCK_PHASE_G: 0
+      - CLOCK_POLARITY_G: 0
 
   # Simulation target
   sim:
