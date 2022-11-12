@@ -21,7 +21,7 @@ parameters:
     datatype: string
     description: The component family you'd like to target
     paramtype: vlogparam
-    default: "ULTRASCALE"
+    default: "RTL"
 
 provider:
   name     : github
