@@ -1,0 +1,31 @@
+CAPI=2:
+name: midimaster21b:prim:ddr:0.1.0
+description: A quick pull together of oddr and iddr implementations
+
+filesets:
+  rtl:
+    files:
+      - src/rtl/oddr.sv
+      - src/rtl/iddr.sv
+    file_type: systemVerilogSource
+
+targets:
+  # Special FuseSoC target
+  default: &default
+    filesets:
+      - rtl
+    toplevel: oddr
+
+parameters:
+  TARGET:
+    datatype: string
+    description: The component family you'd like to target
+    paramtype: vlogparam
+    default: "ULTRASCALE"
+
+provider:
+  name     : github
+  user     : midimaster21b
+  repo     : fpga-io-primitives
+  cachable : false
+  version  : master
