@@ -2,6 +2,52 @@ CAPI=2:
 name: midimaster21b:comm:spi-master:0.1.1
 description: A simple SPI master implementation
 
+filesets:
+  rtl:
+    files:
+      - src/rtl/spi_master.vhd
+      - src/rtl/spi_master_wrapper.vhd
+    file_type: vhdlSource
+
+  tb:
+    files:
+      - src/tb/spi_master_tb.sv
+    file_type: systemVerilogSource
+    depend: [midimaster21b:bfm:axis, midimaster21b:bfm:spi, midimaster21b:comm:amba-interfaces, midimaster21b:prim:ddr]
+
+targets:
+  # Special FuseSoC target
+  default: &default
+    default_tool: vivado
+    filesets:
+      - rtl
+    toplevel: spi_master_wrapper
+    parameters:
+      CLOCK_PHASE_G: 0
+      CLOCK_POLARITY_G: 0
+
+  # Simulation target
+  sim:
+    <<: *default
+    description: Simulate the design
+    default_tool: xsim
+    filesets_append:
+      - tb
+    toplevel: spi_master_tb
+
+
+parameters:
+  CLOCK_PHASE_G:
+    datatype: int
+    description: The SPI clock phase of the IP
+    paramtype: vlogparam
+    default: 0
+  CLOCK_POLARITY_G:
+    datatype: int
+    description: The SPI clock polarity of the IP
+    paramtype: vlogparam
+    default: 0
+
 provider:
   name     : github
   user     : midimaster21b
