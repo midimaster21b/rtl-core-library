@@ -1,0 +1,10 @@
+CAPI=2:
+name: midimaster21b:comm:spi-master:0.1.1
+description: A simple SPI master implementation
+
+provider:
+  name     : github
+  user     : midimaster21b
+  repo     : spi-master
+  cachable : false
+  version  : master
