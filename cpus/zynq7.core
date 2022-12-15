@@ -1,0 +1,27 @@
+CAPI=2:
+name: midimaster21b:cpus:zynq7:0.1.0
+description: Zynq7 processing system CPU
+
+filesets:
+  rtl:
+    files:
+      - src/tcl/zynq_ps_bd.tcl
+    file_type: tclSource
+
+targets:
+  # Special FuseSoC target
+  default: &default
+    default_tool: vivado
+    filesets:
+      - rtl
+    toplevel: zynq_ps_wrapper
+    tools:
+      vivado:
+        part: xc7z020clg484-1
+        pnr: none
+
+provider:
+  name    : github
+  user    : midimaster21b
+  repo    : cpu-cores
+  version : master
