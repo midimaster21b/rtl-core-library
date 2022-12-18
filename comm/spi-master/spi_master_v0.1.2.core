@@ -1,5 +1,5 @@
 CAPI=2:
-name: midimaster21b:comm:spi-master:0.1.1
+name: midimaster21b:comm:spi-master:0.1.2
 description: A simple SPI master implementation
 
 filesets:
@@ -17,12 +17,19 @@ filesets:
     file_type: systemVerilogSource
     depend: [midimaster21b:bfm:axis, midimaster21b:bfm:spi, midimaster21b:comm:amba-interfaces]
 
+  pkg_ip:
+    files:
+      - src/tcl/pkg_ip.tcl
+    file_type: tclSource
+
+
 targets:
   # Special FuseSoC target
   default: &default
     default_tool: vivado
     filesets:
       - rtl
+      - pkg_ip
     toplevel: spi_master_wrapper
 
     tools:
@@ -57,5 +64,5 @@ provider:
   name     : github
   user     : midimaster21b
   repo     : spi-master
-  cachable : true
-  version  : v0.1.1
+  cachable : false
+  version  : v0.1.2
