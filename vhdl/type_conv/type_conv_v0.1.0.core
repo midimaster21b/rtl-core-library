@@ -1,0 +1,24 @@
+CAPI=2:
+name: midimaster21b:vhdl:type_conv:0.1.0
+description: A set of VHDL type conversion functions
+
+filesets:
+  rtl:
+    files:
+      - src/rtl/arith_type_conv_pkg.vhd
+      - src/rtl/numeric_type_conv_pkg.vhd
+    file_type: vhdlSource
+
+targets:
+  # Special FuseSoC target
+  default: &default
+    default_tool: vivado
+    toplevel: numeric_type_conv_pkg
+    filesets:
+      - rtl
+
+provider:
+  name: github
+  user: midimaster21b
+  repo: vhdl-type-conversions
+  version: v0.1.0
