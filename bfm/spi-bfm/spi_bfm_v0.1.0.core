@@ -35,4 +35,4 @@ provider:
   user     : midimaster21b
   repo     : spi-bfm
   cachable : false
-  version  : master
+  version  : v0.1.0
