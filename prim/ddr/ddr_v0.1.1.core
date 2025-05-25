@@ -18,7 +18,7 @@ targets:
 
 parameters:
   TARGET:
-    datatype: string
+    datatype: str
     description: The component family you'd like to target
     paramtype: vlogparam
     default: "RTL"
