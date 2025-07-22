@@ -1,0 +1,62 @@
+CAPI=2:
+name: midimaster21b:bfm:axi4:0.1.0
+description: A basic AXI4 BFM
+
+filesets:
+  rtl:
+    files:
+      - src/rtl/axi4_slave_bfm.sv
+      - src/rtl/axi4_master_bfm.sv
+    file_type: systemVerilogSource
+    depend:
+      - midimaster21b:comm:amba-interfaces
+      - midimaster21b:comm:handshake
+
+  tb_smoke:
+    files:
+      - src/tb/axi4_full_tb.sv
+    file_type: systemVerilogSource
+
+  tb_burst:
+    files:
+      - src/tb/axi4_full_burst_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  # Special FuseSoC target
+  default: &default
+    default_tool: vivado
+    filesets:
+      - rtl
+
+  # Smoke simulation target
+  sim_smoke:
+    <<: *default
+    description: Simulate the design
+    default_tool: xsim
+    tools:
+      xsim:
+	xelab_options: [--debug all]
+    filesets_append:
+      - tb_smoke
+    toplevel: axi4_full_tb
+
+  # Burst simulation target
+  sim_burst:
+    <<: *default
+    description: Simulate the design
+    default_tool: xsim
+    tools:
+      xsim:
+	xelab_options: [--debug all]
+    filesets_append:
+      - tb_burst
+    toplevel: axi4_full_burst_tb
+
+
+provider:
+  name     : github
+  user     : midimaster21b
+  repo     : axi4-bfm
+  cachable : false
+  version  : master
