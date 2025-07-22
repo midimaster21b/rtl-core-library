@@ -1,0 +1,43 @@
+CAPI=2:
+name: midimaster21b:comm:handshake:0.1.1
+description: The core hardware handshake
+
+filesets:
+  rtl:
+    files:
+      - src/rtl/handshake_if.sv
+      - src/rtl/handshake_master.sv
+      - src/rtl/handshake_slave.sv
+    file_type: systemVerilogSource
+
+  tb:
+    files:
+      - src/tb/handshake_8bit_always_ready_tb.sv
+      - src/tb/handshake_8bit_not_always_ready_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  # Special FuseSoC target
+  default: &default
+    default_tool: vivado
+    filesets:
+      - rtl
+
+  # Simulation target
+  sim:
+    <<: *default
+    description: Simulate the design
+    default_tool: xsim
+    tools:
+      xsim:
+        xelab_options: [--debug, all]
+    filesets_append:
+      - tb
+    toplevel: handshake_8bit_always_ready_tb
+
+provider:
+  name     : github
+  user     : midimaster21b
+  repo     : handshake
+  cachable : true
+  version  : v0.1.1
