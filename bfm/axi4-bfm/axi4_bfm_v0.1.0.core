@@ -36,7 +36,7 @@ targets:
     default_tool: xsim
     tools:
       xsim:
-	xelab_options: [--debug all]
+        xelab_options: [--debug all]
     filesets_append:
       - tb_smoke
     toplevel: axi4_full_tb
@@ -48,7 +48,7 @@ targets:
     default_tool: xsim
     tools:
       xsim:
-	xelab_options: [--debug all]
+        xelab_options: [--debug all]
     filesets_append:
       - tb_burst
     toplevel: axi4_full_burst_tb
