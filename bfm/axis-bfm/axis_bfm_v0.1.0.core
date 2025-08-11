@@ -1,0 +1,39 @@
+CAPI=2:
+name: midimaster21b:bfm:axis:0.1.0
+description: A basic AXIS BFM
+
+filesets:
+  rtl:
+    files:
+      - src/rtl/axis_slave_bfm.sv
+      - src/rtl/axis_master_bfm.sv
+    file_type: systemVerilogSource
+    depend: [midimaster21b:comm:amba-interfaces]
+
+  tb:
+    files:
+      - src/tb/axis_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  # Special FuseSoC target
+  default: &default
+    default_tool: vivado
+    filesets:
+      - rtl
+
+  # Simulation target
+  sim:
+    <<: *default
+    description: Simulate the design
+    default_tool: xsim
+    filesets_append:
+      - tb
+    toplevel: axis_tb
+
+provider:
+  name     : github
+  user     : midimaster21b
+  repo     : axis-bfm
+  cachable : true
+  version  : v0.1.0
