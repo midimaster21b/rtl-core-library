@@ -39,5 +39,5 @@ provider:
   name     : github
   user     : midimaster21b
   repo     : handshake
-  cachable : false
-  version  : master
+  cachable : true
+  version  : v0.1.2
